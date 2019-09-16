@@ -10,6 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Insert Product</title>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/qi6d7hz5i32y7rxgwrfnisdk6go7mxxxuftvj63dq0r4iovv/tinymce/5/tinymce.min.js"></script>
+    <script type="text/javascript">
+            tinymce.init({
+             selector: 'textarea'
+
+        });
+    </script>
 </head>
 <body bgcolor="#999999">
     
@@ -92,11 +100,73 @@
                 <td><input type="text" name="product_keywords"  size="75"></td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" name="submit"></td>
+                <td colspan="2" align="center"><input type="submit" name="insert_product" value="Insert Product"></td>
             </tr>
         </table>
     
     </form>
 
+
+    <!-- php code for insertion   -->
+    <?php
+
+        // if(isset($_POST['insert_product'])){
+            
+            //text data variables
+            $product_tittle=$_POST['product_tittle'];
+            $product_cat=$_POST['product_cat'];
+            $product_brand=$_POST['product_brand'];
+            $product_price=$_POST['product_price'];
+            $product_desc=$_POST['product_desc'];
+            $product_status= 'on';
+            $product_keywords=$_POST['product_keywords'];
+
+            //image variable
+
+            $product_img1= $_FILES['product_img1']['name'];
+            $product_img2= $_FILES['product_img2']['name'];
+            $product_img3= $_FILES['product_img3']['name'];
+
+
+            //image temp name
+            $temp_name1= $_FILES['product_img1']['temp_name'];
+            $temp_name2= $_FILES['product_img1']['temp_name'];
+            $temp_name3= $_FILES['product_img1']['temp_name'];
+
+            //validation for insert
+
+            if($product_tittle=='' OR $product_cat=='' OR $product_brand=='' OR $product_price=='' OR $product_desc=='' OR $product_keywords=='' OR $product_img1==''){
+                echo "<script>alert('Please fill all the fields')</script>";
+                exit();
+            }
+
+            else{
+                //uploading image
+                move_uploaded_file($temp_name1,"product_images/$product_img1");
+                ove_uploaded_file($temp_name2,"product_images/$product_img2");
+                ove_uploaded_file($temp_name3,"product_images/$product_img3");
+                    //insert query
+                $insert_product ="insert into products (cat_id,brand_id,date,product_tittle,product_img1,product_img2,product_img3,product_price,product_des,product_status,) values 
+                ('$product_cat','$product_brand',NOW(),'$product_tittle','$product_img1','$product_img2','$product_img3','$product_price','$product_desc','$product_status')";
+                
+                $run_product = mysqli_query($con, $insert_product);
+
+                if($run_product){
+                    echo "<script>alert('Product inserted successfully')</script>";
+                }
+
+
+            }
+
+        
+
+
+
+       // }
+
+
+    ?>
+
 </body>
 </html>
+

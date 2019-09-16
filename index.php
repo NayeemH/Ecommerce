@@ -1,3 +1,8 @@
+<?php
+    include("includes/db.php");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,26 +58,35 @@
                 <div id="sidebar_tittle">Categories</div>
 
                 <ul id="category">
-                    <li><a href="#">Laptop</a></li>
-                    <li><a href="#">Mobiles</a></li>
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Tablets</a></li>
-                    <li><a href="#">Watches</a></li>
-                    <li><a href="#">Chargers</a></li>
-                    <li><a href="#">Fans</a></li>
-                    <li><a href="#">Monitor</a></li>
+                <?php
+                        $get_cats ="Select * from categories";
+                        $run_cats = mysqli_query($con,$get_cats);
+
+                        while($row_cats = mysqli_fetch_array($run_cats)){
+                            $cat_id =$row_cats['cat_id'];
+                            $cat_tittle = $row_cats['cat_tittle'];
+
+                            echo "<li><a href='index.php?cat=$cat_id'>$cat_tittle</a></li>";
+                        }
+                    ?>
+                    
                 </ul>
 
                 <div id="sidebar_tittle">Brands</div>
                 <ul id="category">
-                    <li><a href="#">DELL</a></li>
-                    <li><a href="#">ASUS</a></li>
-                    <li><a href="#">APPLE</a></li>
-                    <li><a href="#">LENOVO</a></li>
-                    <li><a href="#">SAMSUNG</a></li>
-                    <li><a href="#">ACER</a></li>
-                    <li><a href="#">TOSHIBA</a></li>
-                    <li><a href="#">RAZER BLADE</a></li>
+
+                <?php
+                        $get_brands ="Select * from brands";
+                        $run_brands = mysqli_query($con,$get_brands);
+
+                        while($row_brands = mysqli_fetch_array($run_brands)){
+                            $brand_id =$row_brands['brand_id'];
+                            $brand_tittle = $row_brands['brand_tittle'];
+
+                            echo "<li><a href='index.php?brand=$brand_id'>$brand_tittle</a></li>";
+                        }
+                    ?> 
+                    
                     
                 </ul>
 

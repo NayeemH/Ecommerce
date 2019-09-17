@@ -1,7 +1,8 @@
 <?php
     include("includes/db.php");
-?>
 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,7 @@
 </head>
 <body bgcolor="#999999">
     
-    <form action="psot" action="insert_product.php" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <table width="700" align="center" border="2px solid black" bgcolor="#2293B2">
             <tr align="center">
                 <td colspan="2" align="center"><h2>Insert New Product</h2></td>
@@ -110,7 +111,7 @@
     <!-- php code for insertion   -->
     <?php
 
-        // if(isset($_POST['insert_product'])){
+        if(isset($_POST['insert_product'])){
             
             //text data variables
             $product_tittle=$_POST['product_tittle'];
@@ -162,7 +163,11 @@
 
 
 
-       // }
+        }
+
+        else{
+            echo "<script>alert('Error')</script>";
+        }
 
 
     ?>
